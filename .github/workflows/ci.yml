@@ -21,10 +21,10 @@ jobs:
       - name: Clonar el código fuente
         uses: actions/checkout@v4
 
-      - name: Configurar el entorno Java 21
+      - name: Configurar el entorno Java 25
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '25'
           distribution: 'temurin'
           cache: 'maven'
 
@@ -63,10 +63,10 @@ jobs:
       - name: Clonar el código fuente
         uses: actions/checkout@v4
 
-      - name: Configurar el entorno Java 21
+      - name: Configurar el entorno Java 25
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '25'
           distribution: 'temurin'
           cache: 'maven'
 
