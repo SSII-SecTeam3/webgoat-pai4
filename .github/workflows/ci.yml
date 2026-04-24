@@ -1,0 +1,42 @@
+name: DevSecOps - PAI 4
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  # -------------------------------------------------------------
+  # HERRAMIENTA 1: Análisis de Dependencias (SCA)
+  # -------------------------------------------------------------
+  sca-dependency-check:
+    name: Escaneo con OWASP Dependency-Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar el entorno Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Ejecutar OWASP Dependency-Check
+        run: mvn org.owasp:dependency-check-maven:check -Dformat=XML --no-transfer-progress
+
+      - name: Guardar el informe como Artefacto
+        # always() asegura que el artefacto se guarde incluso si el escáner detecta fallos y marca el job como "fallido"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-dependencias-xml
+          path: target/dependency-check-report.xml
+          retention-days: 14
