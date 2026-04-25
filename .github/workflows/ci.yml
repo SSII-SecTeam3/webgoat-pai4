@@ -88,7 +88,7 @@ jobs:
   sast-codacy:
     name: Análisis SAST con Codacy
     runs-on: ubuntu-latest
-    needs: build # Asegura que al menos el código compila antes de analizarlo [cite: 18]
+    needs: build
 
     steps:
       - name: Clonar el código fuente
@@ -102,7 +102,7 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
-          output: results.sarif
+          output: target/results.sarif
           format: sarif
 
       - name: Guardar el informe como Artefacto
