@@ -102,7 +102,7 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
-          output: target/results.sarif
+          output: target/codacy-report.sarif
           format: sarif
 
       - name: Guardar el informe como Artefacto
@@ -110,5 +110,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: reporte-sast-sarif
-          path: target/results.sarif
+          path: target/codacy-report.sarif
           retention-days: 14
