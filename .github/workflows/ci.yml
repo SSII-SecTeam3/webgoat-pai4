@@ -93,6 +93,9 @@ jobs:
     steps:
       - name: Clonar el código fuente
         uses: actions/checkout@v4
+      
+      - name: Crear directorio target
+        run: mkdir -p target
 
       - name: Ejecutar Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@master
