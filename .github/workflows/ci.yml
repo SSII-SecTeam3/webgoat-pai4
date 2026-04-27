@@ -16,7 +16,7 @@ jobs:
   # -------------------------------------------------------------
   build:
     name: Compilación del proyecto
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Clonar el código fuente
         uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
   # -------------------------------------------------------------
   unit-tests:
     name: Tests unitarios
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Clonar el código fuente
@@ -57,7 +57,7 @@ jobs:
   # -------------------------------------------------------------
   sca-dependency-check:
     name: Escaneo con OWASP Dependency-Check
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
@@ -88,7 +88,7 @@ jobs:
   # -------------------------------------------------------------
   sast-codacy:
     name: Análisis SAST con Codacy
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
@@ -119,7 +119,7 @@ jobs:
   # -------------------------------------------------------------
   trivy-container-scan:
     name: Escaneo de contenedores con Trivy
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
