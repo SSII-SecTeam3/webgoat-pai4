@@ -113,3 +113,34 @@ jobs:
           name: reporte-sast-sarif
           path: target/codacy-report.sarif
           retention-days: 14
+
+  # -------------------------------------------------------------
+  # HERRAMIENTA 3: Análisis de Contenedores (Trivy)
+  # -------------------------------------------------------------
+  trivy-container-scan:
+    name: Escaneo de contenedores con Trivy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Clonar el código fuente
+        uses: actions/checkout@v4
+
+      # Nota: Usamos scan-type: 'fs' para escanear el sistema de archivos, 
+      # lo cual buscará vulnerabilidades en tu Dockerfile y dependencias.
+      - name: Ejecutar Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Guardar el informe como Artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-trivy-sarif
+          path: trivy-results.sarif
+          retention-days: 14
